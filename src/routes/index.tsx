@@ -57,6 +57,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const selectedProject = lightbox === null ? undefined : projects[lightbox];
 
   useEffect(() => {
     const nodes = document.querySelectorAll<HTMLElement>(".reveal");
@@ -146,7 +147,7 @@ function Index() {
       <a href={wa("Hallo Mahaka Kreatif, saya ingin konsultasi dan booking order.")} target="_blank" rel="noreferrer" className="fixed bottom-4 right-4 z-40 hidden h-14 items-center gap-2 rounded-full bg-whatsapp px-5 font-display text-xs font-bold uppercase text-primary-foreground shadow-2xl md:flex"><MessageCircle size={20} /> WhatsApp</a>
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/92 p-2 backdrop-blur-xl md:hidden"><a href={wa("Hallo Mahaka Kreatif, saya ingin konsultasi dan booking order.")} target="_blank" rel="noreferrer" className="btn-primary w-full !bg-whatsapp !border-whatsapp"><MessageCircle size={19} /> WhatsApp — Booking order</a></div>
 
-      {lightbox !== null && <div className="fixed inset-0 z-[80] grid place-items-center bg-background/95 p-3 backdrop-blur-xl" role="dialog" aria-modal="true" aria-label={projects[lightbox].title} onClick={() => setLightbox(null)}><button className="icon-btn absolute right-4 top-4 z-10" onClick={() => setLightbox(null)} aria-label="Tutup gambar"><X /></button><figure className="max-h-[90vh] max-w-5xl" onClick={(e) => e.stopPropagation()}><img src={projects[lightbox].src} alt={projects[lightbox].alt} className="max-h-[78vh] w-auto max-w-full object-contain" /><figcaption className="mt-4 flex justify-between gap-4"><span className="font-semibold">{projects[lightbox].title}</span><span className="font-display text-xs uppercase text-primary">{projects[lightbox].category}</span></figcaption></figure></div>}
+      {selectedProject && <div className="fixed inset-0 z-[80] grid place-items-center bg-background/95 p-3 backdrop-blur-xl" role="dialog" aria-modal="true" aria-label={selectedProject.title} onClick={() => setLightbox(null)}><button className="icon-btn absolute right-4 top-4 z-10" onClick={() => setLightbox(null)} aria-label="Tutup gambar"><X /></button><figure className="max-h-[90vh] max-w-5xl" onClick={(e) => e.stopPropagation()}><img src={selectedProject.src} alt={selectedProject.alt} className="max-h-[78vh] w-auto max-w-full object-contain" /><figcaption className="mt-4 flex justify-between gap-4"><span className="font-semibold">{selectedProject.title}</span><span className="font-display text-xs uppercase text-primary">{selectedProject.category}</span></figcaption></figure></div>}
     </main>
   );
 }
