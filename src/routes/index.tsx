@@ -2,24 +2,27 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, ChevronDown, ExternalLink, Layers3, Menu, MessageCircle, Ruler, Sparkles, X, Zap } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 
-import logoAsset from "../assets/ChatGPT_Image_30_Sep_2026_22.38.16.png.asset.json";
-import projectStore from "../assets/IMG-20260930-WA0110.jpg.asset.json";
-import projectInterior from "../assets/IMG-20260930-WA0111.jpg.asset.json";
-import projectSamsung from "../assets/IMG-20260930-WA0112.jpg.asset.json";
-import projectLettering from "../assets/IMG-20260930-WA0107.jpg.asset.json";
-import projectDisplay from "../assets/IMG-20260930-WA0089.jpg.asset.json";
-import projectAcp from "../assets/IMG-20260930-WA0064.jpg.asset.json";
-
 const WA = "https://wa.me/6282174234184";
 const wa = (message: string) => `${WA}?text=${encodeURIComponent(message)}`;
 
+// Immutable CDN paths keep every supplied image stable across previews and publishes.
+const media = {
+  logo: "/__l5e/assets-v1/f91357c5-f8e0-4510-8a9a-51b92a6f9051/ChatGPT_Image_30_Sep_2026_22.38.16.png",
+  store: "/__l5e/assets-v1/776fa1a3-3ad9-47ff-a486-be83955459e6/IMG-20260930-WA0110.jpg",
+  interior: "/__l5e/assets-v1/0de69be1-1bf2-4083-b573-a1cbd7811f26/IMG-20260930-WA0111.jpg",
+  samsung: "/__l5e/assets-v1/034a2b6e-99dd-4738-a6ea-8f4d7f631661/IMG-20260930-WA0112.jpg",
+  lettering: "/__l5e/assets-v1/d4723a8f-17ae-4b4f-8fb3-599e9dfb94bd/IMG-20260930-WA0107.jpg",
+  display: "/__l5e/assets-v1/809efa4e-feb7-4abb-9272-045ee7c33207/IMG-20260930-WA0089.jpg",
+  acp: "/__l5e/assets-v1/793c2307-34f9-4e13-ab0e-2811c286a3f1/IMG-20260930-WA0064.jpg",
+} as const;
+
 const projects = [
-  { src: projectStore.url, title: "Storefront & Signage", category: "ACP · Signage", alt: "Pemasangan storefront dan signage komersial Erafone" },
-  { src: projectInterior.url, title: "Retail Display", category: "Custom Display", alt: "Interior retail dengan illuminated display Samsung" },
-  { src: projectSamsung.url, title: "Illuminated Wall", category: "Neon Box", alt: "Display dinding menyala Samsung di area retail" },
-  { src: projectLettering.url, title: "M Store Lettering", category: "3D Lettering", alt: "Proses fabrikasi lettering tiga dimensi M Store" },
-  { src: projectDisplay.url, title: "Premium Product Display", category: "Custom Branding", alt: "Display produk iPhone di interior toko" },
-  { src: projectAcp.url, title: "Commercial Facade", category: "ACP · Lettering", alt: "Fasad ACP merah dengan lettering tiga dimensi" },
+  { src: media.store, title: "Storefront & Signage", category: "ACP · Signage", alt: "Pemasangan storefront dan signage komersial Erafone" },
+  { src: media.interior, title: "Retail Display", category: "Custom Display", alt: "Interior retail dengan illuminated display Samsung" },
+  { src: media.samsung, title: "Illuminated Wall", category: "Neon Box", alt: "Display dinding menyala Samsung di area retail" },
+  { src: media.lettering, title: "M Store Lettering", category: "3D Lettering", alt: "Proses fabrikasi lettering tiga dimensi M Store" },
+  { src: media.display, title: "Premium Product Display", category: "Custom Branding", alt: "Display produk iPhone di interior toko" },
+  { src: media.acp, title: "Commercial Facade", category: "ACP · Lettering", alt: "Fasad ACP merah dengan lettering tiga dimensi" },
 ];
 
 const services = [
@@ -79,7 +82,7 @@ function Index() {
     <main>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
         <div className="section-shell flex h-18 items-center justify-between">
-          <a href="#top" className="relative z-10" aria-label="Mahaka Kreatif - kembali ke atas"><img src={logoAsset.url} alt="Mahaka Kreatif" className="h-10 w-auto max-w-46 object-contain brightness-0 invert" /></a>
+          <a href="#top" className="relative z-10" aria-label="Mahaka Kreatif - kembali ke atas"><img src={media.logo} alt="Mahaka Kreatif" className="h-10 w-auto max-w-46 object-contain brightness-0 invert" /></a>
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Navigasi utama">
             {nav.map(([label, href]) => <a key={href} href={href} className="font-display text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground transition-colors hover:text-primary">{label}</a>)}
           </nav>
@@ -101,7 +104,7 @@ function Index() {
           </div>
           <div className="hero-stage relative reveal" data-visible="true">
             <div className="hero-frame relative aspect-[4/5] max-h-[70svh] overflow-hidden border border-border bg-card lg:aspect-[5/6]">
-              <img src={projectStore.url} alt="Proyek storefront, ACP, dan signage Mahaka Kreatif" className="h-full w-full object-cover" fetchPriority="high" />
+              <img src={media.store} alt="Proyek storefront, ACP, dan signage Mahaka Kreatif" className="h-full w-full object-cover" fetchPriority="high" />
               <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--background),transparent_55%)]" />
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 md:p-7"><div><p className="font-display text-xs uppercase tracking-[.18em] text-primary">Complete storefront</p><p className="mt-2 text-lg font-semibold">ACP + Signage + Lettering</p></div><span className="depth-number font-display text-5xl font-bold text-foreground/25">01</span></div>
             </div>
@@ -122,7 +125,7 @@ function Index() {
 
       <section id="acp" className="section-pad border-y border-border bg-panel">
         <div className="section-shell grid gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-          <div className="project-card relative aspect-[4/5] overflow-hidden border border-border reveal md:aspect-[4/3]"><img src={projectAcp.url} alt="Proyek fasad ACP Mahaka Kreatif" className="h-full w-full object-cover" loading="lazy" /><div className="absolute inset-0 bg-[linear-gradient(to_top,var(--background),transparent_65%)]" /><p className="absolute bottom-5 left-5 font-display text-sm font-semibold uppercase text-primary">ACP commercial facade</p></div>
+          <div className="project-card relative aspect-[4/5] overflow-hidden border border-border reveal md:aspect-[4/3]"><img src={media.acp} alt="Proyek fasad ACP Mahaka Kreatif" className="h-full w-full object-cover" loading="lazy" /><div className="absolute inset-0 bg-[linear-gradient(to_top,var(--background),transparent_65%)]" /><p className="absolute bottom-5 left-5 font-display text-sm font-semibold uppercase text-primary">ACP commercial facade</p></div>
           <div className="reveal"><p className="eyebrow">Core service</p><h2 className="display-title mt-5 text-4xl md:text-6xl">ACP untuk fasad yang lebih rapi.</h2><p className="mt-6 text-base leading-7 text-muted-foreground">Bangun tampilan storefront dan area komersial dengan kombinasi panel ACP, signage, dan visual branding.</p><div className="mt-8 divide-y divide-border border-y border-border">{["Survey & measurement", "Design", "Fabrication", "Installation", "Finishing"].map((step, i) => <div key={step} className="flex items-center gap-5 py-4"><span className="font-display text-sm font-bold text-primary">0{i + 1}</span><span className="font-display text-sm font-semibold uppercase">{step}</span></div>)}</div><a className="btn-primary mt-8" href={wa("Hallo Mahaka Kreatif, saya ingin konsultasi proyek ACP untuk kebutuhan toko/bisnis saya.")} target="_blank" rel="noreferrer">Konsultasi proyek ACP <ArrowRight size={17} /></a></div>
         </div>
       </section>
@@ -142,7 +145,7 @@ function Index() {
 
       <QuoteSection />
 
-      <footer className="border-t border-border pb-28 pt-12 md:pb-12"><div className="section-shell grid gap-10 md:grid-cols-3"><div><img src={logoAsset.url} alt="Mahaka Kreatif" className="h-12 w-auto max-w-56 object-contain brightness-0 invert" /><p className="mt-4 text-sm uppercase text-muted-foreground">Neon Box · Signage · ACP · Advertising</p></div><div><p className="font-display text-xs font-semibold uppercase text-primary">Hubungi kami</p><a href={wa("Hallo Mahaka Kreatif, saya ingin konsultasi mengenai proyek saya.")} target="_blank" rel="noreferrer" className="mt-4 block text-xl font-semibold">0821 7423 4184</a></div><div className="md:text-right"><p className="text-xs uppercase text-muted-foreground">© Mahaka Kreatif<br />All rights reserved.</p></div></div></footer>
+      <footer className="border-t border-border pb-28 pt-12 md:pb-12"><div className="section-shell grid gap-10 md:grid-cols-3"><div><img src={media.logo} alt="Mahaka Kreatif" className="h-12 w-auto max-w-56 object-contain brightness-0 invert" /><p className="mt-4 text-sm uppercase text-muted-foreground">Neon Box · Signage · ACP · Advertising</p></div><div><p className="font-display text-xs font-semibold uppercase text-primary">Hubungi kami</p><a href={wa("Hallo Mahaka Kreatif, saya ingin konsultasi mengenai proyek saya.")} target="_blank" rel="noreferrer" className="mt-4 block text-xl font-semibold">0821 7423 4184</a></div><div className="md:text-right"><p className="text-xs uppercase text-muted-foreground">© Mahaka Kreatif<br />All rights reserved.</p></div></div></footer>
 
       <a href={wa("Hallo Mahaka Kreatif, saya ingin konsultasi dan booking order.")} target="_blank" rel="noreferrer" className="fixed bottom-4 right-4 z-40 hidden h-14 items-center gap-2 rounded-full bg-whatsapp px-5 font-display text-xs font-bold uppercase text-primary-foreground shadow-2xl md:flex"><MessageCircle size={20} /> WhatsApp</a>
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/92 p-2 backdrop-blur-xl md:hidden"><a href={wa("Hallo Mahaka Kreatif, saya ingin konsultasi dan booking order.")} target="_blank" rel="noreferrer" className="btn-primary w-full !bg-whatsapp !border-whatsapp"><MessageCircle size={19} /> WhatsApp — Booking order</a></div>
