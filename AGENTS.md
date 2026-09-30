@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+## Project Architecture
+
+- Use lightweight CSS perspective transforms and intersection observers for the 3D experience; this preserves fast mobile rendering without a heavy 3D engine.
