@@ -7,3 +7,5 @@
 - [x] Replace formal vocabulary with friendly Indonesian throughout the page
 - [x] Add lightweight falling background particles with reduced-motion support
 - [x] Check wording, animation, and existing interactions
+
+- [ ] Optimize image sizes and verify responsive loading, repeat loads, and original lightbox photos

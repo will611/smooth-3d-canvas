@@ -1,3 +1,4 @@
+import { media } from "@/lib/media";
 import { FallingParticles } from "@/components/falling-particles";
 import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
@@ -7,16 +8,6 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 const WA = "https://wa.me/6282174234184";
 const wa = (message: string) => `${WA}?text=${encodeURIComponent(message)}`;
 
-// Immutable CDN paths keep every supplied image stable across previews and publishes.
-const media = {
-  logo: "/__l5e/assets-v1/f91357c5-f8e0-4510-8a9a-51b92a6f9051/ChatGPT_Image_30_Sep_2026_22.38.16.png",
-  store: "/__l5e/assets-v1/776fa1a3-3ad9-47ff-a486-be83955459e6/IMG-20260930-WA0110.jpg",
-  interior: "/__l5e/assets-v1/0de69be1-1bf2-4083-b573-a1cbd7811f26/IMG-20260930-WA0111.jpg",
-  samsung: "/__l5e/assets-v1/034a2b6e-99dd-4738-a6ea-8f4d7f631661/IMG-20260930-WA0112.jpg",
-  lettering: "/__l5e/assets-v1/d4723a8f-17ae-4b4f-8fb3-599e9dfb94bd/IMG-20260930-WA0107.jpg",
-  display: "/__l5e/assets-v1/809efa4e-feb7-4abb-9272-045ee7c33207/IMG-20260930-WA0089.jpg",
-  acp: "/__l5e/assets-v1/793c2307-34f9-4e13-ab0e-2811c286a3f1/IMG-20260930-WA0064.jpg",
-} as const;
 
 const projects = [
   { src: media.store, title: "Depan Toko & Papan Nama", category: "ACP · Signage", alt: "Pemasangan storefront dan signage komersial Erafone" },
@@ -47,6 +38,7 @@ const faqs = [
 
 export const Route = createFileRoute("/")({
   head: () => ({
+    links: [{ rel: "preload", as: "image", href: media.store.src, imageSrcSet: media.store.srcSet, imageSizes: "(min-width: 1024px) 580px, calc(100vw - 20px)" }],
     meta: [
       { title: "Mahaka Kreatif | Neon Box, Signage & ACP Medan" },
       { name: "description", content: "Bikin neon box, papan nama, ACP, dan huruf timbul untuk usaha kamu. Mahaka Kreatif bantu dari ngobrol ide sampai terpasang." },
@@ -85,7 +77,7 @@ function Index() {
       <FallingParticles />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
         <div className="section-shell flex h-18 items-center justify-between">
-          <a href="#top" className="relative z-10" aria-label="Mahaka Kreatif - kembali ke atas"><img src={media.logo} alt="Mahaka Kreatif" className="h-10 w-auto max-w-46 object-contain brightness-0 invert" /></a>
+          <a href="#top" className="relative z-10" aria-label="Mahaka Kreatif - kembali ke atas"><img src={media.logo} width={400} height={208} decoding="async" alt="Mahaka Kreatif" className="h-10 w-auto max-w-46 object-contain brightness-0 invert" /></a>
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Navigasi utama">
             {nav.map(([label, href]) => <a key={href} href={href} className="font-display text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground transition-colors hover:text-primary">{label}</a>)}
           </nav>
@@ -107,7 +99,7 @@ function Index() {
           </div>
           <div className="hero-stage relative reveal" data-visible="true">
             <div className="hero-frame relative aspect-[4/5] max-h-[70svh] overflow-hidden border border-border bg-card lg:aspect-[5/6]">
-              <img src={media.store} alt="Proyek storefront, ACP, dan signage Mahaka Kreatif" className="h-full w-full object-cover" fetchPriority="high" />
+              <img src={media.store.src} srcSet={media.store.srcSet} sizes="(min-width: 1024px) 580px, calc(100vw - 20px)" width={1280} height={1280} decoding="async" loading="eager" alt="Proyek storefront, ACP, dan signage Mahaka Kreatif" className="h-full w-full object-cover" fetchPriority="high" />
               <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--background),transparent_55%)]" />
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 md:p-7"><div><p className="font-display text-xs uppercase tracking-[.18em] text-primary">Tampilan depan toko</p><p className="mt-2 text-lg font-semibold">ACP + Papan nama + Huruf timbul</p></div><span className="depth-number font-display text-5xl font-bold text-foreground/25">01</span></div>
             </div>
@@ -128,7 +120,7 @@ function Index() {
 
       <section id="acp" className="section-pad border-y border-border bg-panel">
         <div className="section-shell grid gap-12 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-          <div className="project-card relative aspect-[4/5] overflow-hidden border border-border reveal md:aspect-[4/3]"><img src={media.acp} alt="Proyek fasad ACP Mahaka Kreatif" className="h-full w-full object-cover" loading="lazy" /><div className="absolute inset-0 bg-[linear-gradient(to_top,var(--background),transparent_65%)]" /><p className="absolute bottom-5 left-5 font-display text-sm font-semibold uppercase text-primary">Tampilan depan dengan ACP</p></div>
+          <div className="project-card relative aspect-[4/5] overflow-hidden border border-border reveal md:aspect-[4/3]"><img src={media.acp.src} srcSet={media.acp.srcSet} sizes="(min-width: 1024px) 640px, calc(100vw - 20px)" width={864} height={1536} decoding="async" alt="Proyek fasad ACP Mahaka Kreatif" className="h-full w-full object-cover" loading="lazy" /><div className="absolute inset-0 bg-[linear-gradient(to_top,var(--background),transparent_65%)]" /><p className="absolute bottom-5 left-5 font-display text-sm font-semibold uppercase text-primary">Tampilan depan dengan ACP</p></div>
           <div className="reveal"><p className="eyebrow">Bikin tampilan makin rapi</p><h2 className="display-title mt-5 text-4xl md:text-6xl">Depan toko rapi pakai ACP.</h2><p className="mt-6 text-base leading-7 text-muted-foreground">Mau ganti suasana depan toko? Padukan panel ACP dengan papan nama atau huruf timbul yang sesuai gaya usaha kamu.</p><div className="mt-8 divide-y divide-border border-y border-border">{["Cek lokasi & ukur", "Pilih desain", "Mulai produksi", "Pasang di lokasi", "Rapikan hasilnya"].map((step, i) => <div key={step} className="flex items-center gap-5 py-4"><span className="font-display text-sm font-bold text-primary">0{i + 1}</span><span className="font-display text-sm font-semibold uppercase">{step}</span></div>)}</div><a className="btn-primary mt-8" href={wa("Halo Mahaka Kreatif, saya ingin konsultasi proyek ACP untuk kebutuhan toko/bisnis saya.")} target="_blank" rel="noreferrer">Ngobrol soal ACP <ArrowRight size={17} /></a></div>
         </div>
       </section>
@@ -136,7 +128,7 @@ function Index() {
       <section id="portofolio" className="section-pad">
         <div className="section-shell">
           <div className="reveal flex flex-col gap-5 md:flex-row md:items-end md:justify-between"><div><p className="eyebrow">Yang sudah kita kerjakan</p><h2 className="display-title mt-5 text-4xl md:text-6xl">Dari ide jadi nyata.</h2></div><p className="max-w-md text-sm leading-6 text-muted-foreground">Ini beberapa hasil yang sudah kita bikin dan pasang: tampilan toko, huruf timbul, sampai display produk.</p></div>
-          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{projects.map((project, index) => <Button variant="ghost" key={project.title} onClick={() => setLightbox(index)} className={`project-card group relative block h-auto w-full whitespace-normal rounded-none p-0 overflow-hidden border border-border bg-card text-left reveal ${index === 0 ? "md:col-span-2 lg:col-span-2" : ""}`} aria-label={`Lihat ${project.title}`}><div className={index === 0 ? "aspect-[16/9]" : "aspect-square"}><img src={project.src} alt={project.alt} loading="lazy" className="h-full w-full object-cover" /></div><div className="absolute inset-0 bg-[linear-gradient(to_top,var(--background),transparent_62%)]" /><div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5"><div><p className="font-display text-xs font-semibold uppercase text-primary">{project.category}</p><h3 className="mt-1 text-lg font-semibold">{project.title}</h3></div><span className="icon-btn !h-10 !min-h-10 !w-10"><ExternalLink size={16} /></span></div></Button>)}</div>
+          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{projects.map((project, index) => <Button variant="ghost" key={project.title} onClick={() => setLightbox(index)} className={`project-card group relative block h-auto w-full whitespace-normal rounded-none p-0 overflow-hidden border border-border bg-card text-left reveal ${index === 0 ? "md:col-span-2 lg:col-span-2" : ""}`} aria-label={`Lihat ${project.title}`}><div className={index === 0 ? "aspect-[16/9]" : "aspect-square"}><img src={project.src.src} srcSet={project.src.srcSet} sizes={index === 0 ? "(min-width: 1024px) 790px, (min-width: 768px) calc(100vw - 32px), calc(100vw - 20px)" : "(min-width: 1024px) 390px, (min-width: 768px) 50vw, calc(100vw - 20px)"} decoding="async" alt={project.alt} loading="lazy" className="h-full w-full object-cover" /></div><div className="absolute inset-0 bg-[linear-gradient(to_top,var(--background),transparent_62%)]" /><div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5"><div><p className="font-display text-xs font-semibold uppercase text-primary">{project.category}</p><h3 className="mt-1 text-lg font-semibold">{project.title}</h3></div><span className="icon-btn !h-10 !min-h-10 !w-10"><ExternalLink size={16} /></span></div></Button>)}</div>
         </div>
       </section>
 
@@ -148,12 +140,12 @@ function Index() {
 
       <QuoteSection />
 
-      <footer className="border-t border-border pb-28 pt-12 md:pb-12"><div className="section-shell grid gap-10 md:grid-cols-3"><div><img src={media.logo} alt="Mahaka Kreatif" className="h-12 w-auto max-w-56 object-contain brightness-0 invert" /><p className="mt-4 text-sm uppercase text-muted-foreground">Neon Box · Signage · ACP · Advertising</p></div><div><p className="font-display text-xs font-semibold uppercase text-primary">Ngobrol sama kita</p><a href={wa("Halo Mahaka Kreatif, saya mau ngobrol soal kebutuhan usaha saya.")} target="_blank" rel="noreferrer" className="mt-4 block text-xl font-semibold">0821 7423 4184</a></div><div className="md:text-right"><p className="text-xs uppercase text-muted-foreground">© Mahaka Kreatif<br />Hak cipta dilindungi.</p></div></div></footer>
+      <footer className="border-t border-border pb-28 pt-12 md:pb-12"><div className="section-shell grid gap-10 md:grid-cols-3"><div><img src={media.logo} width={400} height={208} decoding="async" alt="Mahaka Kreatif" className="h-12 w-auto max-w-56 object-contain brightness-0 invert" /><p className="mt-4 text-sm uppercase text-muted-foreground">Neon Box · Signage · ACP · Advertising</p></div><div><p className="font-display text-xs font-semibold uppercase text-primary">Ngobrol sama kita</p><a href={wa("Halo Mahaka Kreatif, saya mau ngobrol soal kebutuhan usaha saya.")} target="_blank" rel="noreferrer" className="mt-4 block text-xl font-semibold">0821 7423 4184</a></div><div className="md:text-right"><p className="text-xs uppercase text-muted-foreground">© Mahaka Kreatif<br />Hak cipta dilindungi.</p></div></div></footer>
 
       <a href={wa("Halo Mahaka Kreatif, saya mau ngobrol soal pesanan.")} target="_blank" rel="noreferrer" className="fixed bottom-4 right-4 z-40 hidden h-14 items-center gap-2 rounded-full bg-whatsapp px-5 font-display text-xs font-bold uppercase text-primary-foreground shadow-2xl md:flex"><MessageCircle size={20} /> WhatsApp</a>
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/92 p-2 backdrop-blur-xl md:hidden"><a href={wa("Halo Mahaka Kreatif, saya mau ngobrol soal pesanan.")} target="_blank" rel="noreferrer" className="btn-primary w-full !bg-whatsapp !border-whatsapp"><MessageCircle size={19} /> WhatsApp — Yuk, ngobrol</a></div>
 
-      {selectedProject && <div className="fixed inset-0 z-[80] grid place-items-center bg-background/95 p-3 backdrop-blur-xl" role="dialog" aria-modal="true" aria-label={selectedProject.title} onClick={() => setLightbox(null)}><Button className="icon-btn absolute right-4 top-4 z-10" onClick={() => setLightbox(null)} aria-label="Tutup gambar"><X /></Button><figure className="max-h-[90vh] max-w-5xl" onClick={(e) => e.stopPropagation()}><img src={selectedProject.src} alt={selectedProject.alt} className="max-h-[78vh] w-auto max-w-full object-contain" /><figcaption className="mt-4 flex justify-between gap-4"><span className="font-semibold">{selectedProject.title}</span><span className="font-display text-xs uppercase text-primary">{selectedProject.category}</span></figcaption></figure></div>}
+      {selectedProject && <div className="fixed inset-0 z-[80] grid place-items-center bg-background/95 p-3 backdrop-blur-xl" role="dialog" aria-modal="true" aria-label={selectedProject.title} onClick={() => setLightbox(null)}><Button className="icon-btn absolute right-4 top-4 z-10" onClick={() => setLightbox(null)} aria-label="Tutup gambar"><X /></Button><figure className="max-h-[90vh] max-w-5xl" onClick={(e) => e.stopPropagation()}><img src={selectedProject.src.original} decoding="async" alt={selectedProject.alt} className="max-h-[78vh] w-auto max-w-full object-contain" /><figcaption className="mt-4 flex justify-between gap-4"><span className="font-semibold">{selectedProject.title}</span><span className="font-display text-xs uppercase text-primary">{selectedProject.category}</span></figcaption></figure></div>}
     </main>
   );
 }
