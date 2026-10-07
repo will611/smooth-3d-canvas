@@ -110,6 +110,35 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .field::placeholder { color: var(--muted-foreground); }
 .field:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 13%, transparent); }
 
+
+.site-shell { position: relative; isolation: isolate; }
+.falling-particles { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; contain: strict; }
+.falling-particle { position: absolute; top: -12px; left: 5%; width: 3px; height: 7px; border-radius: 2px; background: var(--primary); opacity: .3; animation: particle-fall 16s linear infinite; }
+.falling-particle:nth-child(3n) { width: 2px; height: 3px; background: var(--foreground); opacity: .2; }
+.falling-particle:nth-child(3n + 1) { animation-duration: 21s; }
+.falling-particle:nth-child(3n + 2) { animation-duration: 27s; }
+.falling-particle:nth-child(2) { left: 11%; animation-delay: -9s; }
+.falling-particle:nth-child(3) { left: 18%; animation-delay: -4s; }
+.falling-particle:nth-child(4) { left: 23%; animation-delay: -18s; }
+.falling-particle:nth-child(5) { left: 29%; animation-delay: -7s; }
+.falling-particle:nth-child(6) { left: 34%; animation-delay: -13s; }
+.falling-particle:nth-child(7) { left: 40%; animation-delay: -3s; }
+.falling-particle:nth-child(8) { left: 46%; animation-delay: -22s; }
+.falling-particle:nth-child(9) { left: 51%; animation-delay: -11s; }
+.falling-particle:nth-child(10) { left: 57%; animation-delay: -16s; }
+.falling-particle:nth-child(11) { left: 62%; animation-delay: -6s; }
+.falling-particle:nth-child(12) { left: 67%; animation-delay: -19s; }
+.falling-particle:nth-child(13) { left: 73%; animation-delay: -12s; }
+.falling-particle:nth-child(14) { left: 78%; animation-delay: -24s; }
+.falling-particle:nth-child(15) { left: 83%; animation-delay: -5s; }
+.falling-particle:nth-child(16) { left: 88%; animation-delay: -17s; }
+.falling-particle:nth-child(17) { left: 93%; animation-delay: -8s; }
+.falling-particle:nth-child(18) { left: 97%; animation-delay: -14s; }
+.falling-particles[data-paused="true"] .falling-particle { animation-play-state: paused; }
+@keyframes particle-fall { from { transform: translate3d(0, -12px, 0); } to { transform: translate3d(-28px, calc(100svh + 24px), 0); } }
+@media (max-width: 767px) { .falling-particle:nth-child(n + 9) { display: none; } }
+@media (prefers-reduced-motion: reduce) { .falling-particles { display: none; } }
+
 @media (max-width: 767px) {
   .hero-frame { transform: rotateY(-3deg) rotateX(1deg); }
   .section-shell { width: min(100% - 1.25rem, 1180px); }
