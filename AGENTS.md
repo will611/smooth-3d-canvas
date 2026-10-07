@@ -13,3 +13,5 @@
 - Use lightweight CSS perspective transforms and intersection observers for the 3D experience; this preserves fast mobile rendering without a heavy 3D engine.
 
 - Keep falling background particles in a separate CSS-animated component, capped at 18 desktop/8 mobile; animate transforms only, pause hidden tabs, and disable under reduced motion to avoid continuous JavaScript rendering.
+
+- Centralize immutable image pointers in src/lib/media.ts; use responsive WebP copies for page images and load supplied originals only in the lightbox, reducing transfer size without changing source photography.
